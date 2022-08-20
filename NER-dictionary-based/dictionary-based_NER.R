@@ -2,7 +2,7 @@
 ###########Create dictionaries
 
 #HMDB dict
-setwd("C:/Users/pauca/OneDrive/Escritorio/Marina TFG/TMpipeline/NER-dictionary-based")
+setwd("~/Desktop/TFG/text_mining/NER-dictionary-based")
 
 
 #we want IDs + synonyms
@@ -26,7 +26,17 @@ fobi_mets <- fobitools::parse_fobi(terms = "FOBI:01501", get = "des") %>%
  
 fobi_classes <- unique(fobitools::fobi$is_a_name)
 fobi_classes <- fobi_classes[-133]
-fobi_classes <- fobi_classes[-which(fobi_classes %in% fobitools::foods$is_a_name)]
+
+remove_patterns <- c("and", "derivatives", "compounds" , "substituted", "NA", "related" , 
+                     "lipids" , "molecules", "acid", "amino", "acids", NA, "amino acids, peptides,", "substituted derivatives"  )
+fobi_classes <- fobi_classes[-which(fobi_classes %in% fobitools::foods$is_a_name)] %>%
+  stri_split_fixed("and") %>%
+  unlist() %>%
+  str_squish() %>%
+  tolower()
+fobi_classes <- fobi_classes[-which(fobi_classes %in% tolower(remove_patterns))]
+  
+
 fobi_alias <- unique(fobitools::fobi$alias)[1:74]
 
 
@@ -61,7 +71,6 @@ met_vec <- append(dict_met$name, dict_met$Synonyms[(!is.na(dict_met$Synonyms))])
 met_vec <- append(met_vec, fobi_alias)
 met_vec <- tolower(unique(append(met_vec, fobi_classes)))
 met_vec <- met_vec[-which(is.na(met_vec))]
-
 
 
 
