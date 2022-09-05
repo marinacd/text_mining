@@ -116,28 +116,13 @@ result2 <- result2 %>%
   mutate(term = as.character(term)) %>%
   mutate(end = start + nchar((term))) %>%
   select(PMC, SentID, start, end, matched_to)
-#FUCK YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS 
+
 
 openxlsx::write.xlsx(result, "subset_results_exact_matching/result2_subset12.xlsx")
 
 
 
 no_match_lay2 <- anti_join(no_match_lay1, lay2, by = "term")
-#si no son metabolits ens son igual!! --> pero els hem de contar igual? els errors son importants tambe
-
-
-
-#AQUI PODEM FER ALGO PER SEPARAR ELS MATCHES DELS NO MATCHES ????
-#si contenten lletra grega --> probably match
-
-#also algo a fer amb els prefixos --> d-lactate and lactate arent matching --> maybe try jarowinkler then?
-
-jarowinkler("lactate", "d-lactate") #0.925  #DO A LAYER WITH JAROWINKLER????
-
-
-#RECORDA A L'HORA DE GENERALITZAR Q NO CAL FERHO AMB TOT EL CORPUS, MAYBE NOMES UNS QUANTS
-
-
 
 
 # # new_list=dict_met$name[-which(is.na(dict_met$name))] 
