@@ -129,7 +129,7 @@ match_lay_2a <- merge(no_match_lay_1, ref_syn, by = "term")
 no_match_lay_2a <- anti_join(no_match_lay_1, ref_syn, by = "term")
 
 #check
-nrow(match_lay_2a) + nrow(no_match_lay_2a) == nrow(no_match_lay_1)  #CHECK WHY THIS IS GIVING FALSE??? i think there was an NA somewhere
+nrow(match_lay_2a) + nrow(no_match_lay_2a) == nrow(no_match_lay_1)  
 
 #############LAYER 2a: EXACT MATCH WITH ALIAS ################
 ref_alias <- dict_met %>%
@@ -209,12 +209,6 @@ no_match_lay_3c <- anti_join(no_match_lay_3b, wordlist_lv[which(wordlist_lv$matc
 #check
 nrow(match_lay_3a) + nrow(no_match_lay_3a) == nrow(no_match_lay_2b) 
 
-#explain why for we are using levenshtein distance --> because metabolites have similar prefixes and jarowinkler fucks that up, also works better for shorter names
-#use examples_IN PRESENTATION (EXTRA DIAPO???)
-
-# control/cortol
-# cpf/cmpf
-#3_hydroxybutyrate      0.874 3-hydroxybutyrylcarnitine 
 
 ###################FINAL LAYER AGAINST STEMMED DIC########################
 #Create DTMs from dictionary
@@ -253,28 +247,6 @@ str_locate(content(corpus[[1]]), "lipoprotein" )
 #       start end
 # [1,]    46  56
 
-# LAYER 1:
-
-
-# LAYER 2a:
-  
-# LAYER 2b:
-  
-# LAYER 3a:
-  
-# LAYER 3b:
-
-# LAYER 3c:
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -296,13 +268,5 @@ inspect(dtm_stemmed)
 inspect(dtm_stemmed_nodic)
 #We can tidy them to only see the non-zero values with (tidy)
 
-# https://github.com/pcastellanoescuder/fobitools/blob/master/R/annotate_foods.R
-# https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
-# https://stackoverflow.com/questions/653157/a-better-similarity-ranking-algorithm-for-variable-length-strings
-# https://stackoverflow.com/questions/11535625/similarity-scores-based-on-string-comparison-in-r-edit-distance
-# https://cran.r-project.org/web/packages/RecordLinkage/RecordLinkage.pdf #levenshteinSim
-# https://github.com/markvanderloo/stringdist
-
-####################################
 
 
