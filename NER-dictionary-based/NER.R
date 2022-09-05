@@ -106,11 +106,6 @@ abs_stemmed <- tm_map(abs, stemDocument)
 inspect(corp[[2]])
 
 
-# https://stackoverflow.com/questions/24771165/r-project-no-applicable-method-for-meta-applied-to-an-object-of-class-charact
-
-#here goes metadata stuff that I'll do tomorrow
-
-
 #term-document matrix
 dtm <- DocumentTermMatrix(abs)
 dtm_stemmed <- DocumentTermMatrix(abs_stemmed)
